@@ -12,6 +12,12 @@ module Webflow
       @attributes = a
     end
 
+    # Create a child object of the type `name`
+    def create_assoc(name, data)
+      klass = Webflow.const_get(name.to_s.singularize.camelize)
+      klass.new(self.class.request("/#{id}/#{name.to_s.pluralize}", data))
+    end
+
     def load_assoc(name)
       klass = Webflow.const_get(name.to_s.singularize.camelize)
       response = self.class.request("/#{self.id}/#{name}")
@@ -50,12 +56,19 @@ module Webflow
       name.demodulize.underscore.pluralize
     end
 
-    def self.request(resource_path = '')
+    def self.request(resource_path = '', data = nil)
       full_path = "https://api.webflow.com#{self.api_prefix}/#{self.resource_name}#{resource_path}"
       puts "Fetching #{full_path}"
       uri = URI.parse(full_path)
 
-      req = Net::HTTP::Get.new(uri)
+      req = nil
+      if data
+        req = Net::HTTP::Post.new(uri)
+        req['Content-Type'] = 'application/json'
+        req.body = data.to_json
+      else
+        req = Net::HTTP::Get.new(uri)
+      end
       req['Accept'] = 'application/json'
 
       auth_header = "Bearer #{@@api_token}"

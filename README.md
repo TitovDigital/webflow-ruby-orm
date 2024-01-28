@@ -50,11 +50,7 @@ Implementation follows the ActiveRecord pattern with minor differences.
 ]
 ```
 
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+## Architecture
 
 Webflow model classes are generated dynamically on load:
 * [webflow.rb](lib/webflow.rb) defines models and associations to create
@@ -62,6 +58,13 @@ Webflow model classes are generated dynamically on load:
 
 ### ToDo
 * Pagination
+* Saving changes to existing records
+
+## Development
+
+After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+
+To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## Contributing
 
